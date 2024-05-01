@@ -67,13 +67,4 @@ class _ImagePreviewViewState extends State<ImagePreviewView> {
       )),
     );
   }
-
-  Future decodeImage() async {
-    // ignore: prefer_typing_uninitialized_variables
-    var decodedImage;
-
-    decodedImage = await decodeImageFromList(widget.file.readAsBytesSync());
-   
-    return decodedImage.width.toDouble();
-  }
 }
