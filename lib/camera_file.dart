@@ -348,7 +348,6 @@ class _CameraFileState extends State<CameraFile> with TickerProviderStateMixin {
                       imageList.add(
                           MediaModel.blob(file, "", file.readAsBytesSync()));
                     }
-                    disposeCamera();
                     Navigator.pop(context, imageList);
                   },
                   child: Padding(
@@ -368,22 +367,24 @@ class _CameraFileState extends State<CameraFile> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    // disposeCamera();
+    disposeCamera();
     super.dispose();
   }
 
   disposeCamera() {
-    log("-------------- disposing camera");
+    print("1-------------- disposing camera");
     if (_controller != null) {
       _controller!.dispose();
     }
 
     animation.removeListener(() {});
-    animation.removeStatusListener(() {});
+    animation.removeStatusListener((_) {});
     scaleAnimation.removeListener(() {});
-    scaleAnimation.removeStatusListener(() {});
+    scaleAnimation.removeStatusListener((_) {});
     _animationController.dispose();
-    controller.dispose();
+    if (!controller.isDismissed) {
+      controller.dispose();
+    }
   }
 }
 
